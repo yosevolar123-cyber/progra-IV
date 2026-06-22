@@ -1,0 +1,209 @@
+<section id="contacto" class="py-24 bg-background relative overflow-hidden">
+  <!-- Subtle tech lines and glowing background -->
+  <div class="absolute bottom-0 right-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+    <!-- Header -->
+    <app-section-header
+      appScrollReveal
+      eyebrow="Contáctanos"
+      title="AGENDA UNA COTIZACIÓN O PRUEBA"
+      description="¿Interesado en domar el asfalto con ingeniería japonesa? Completa el formulario y un asesor experto se pondrá en contacto contigo en menos de 24 horas."
+    ></app-section-header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Contact Info Column -->
+      <div 
+        appScrollReveal
+        [revealDelay]="100"
+        class="lg:col-span-5 flex flex-col gap-8 lg:pr-10"
+      >
+        <div class="glass-panel p-8 rounded-xl border border-border-hairline/60">
+          <h3 class="font-rajdhani font-bold text-xl text-on-surface uppercase tracking-wider mb-6">INFORMACIÓN DE CONTACTO</h3>
+          
+          <div class="flex flex-col gap-6">
+            <!-- Location -->
+            <div class="flex gap-4 items-start">
+              <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <span class="material-symbols-outlined text-xl">location_on</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-sm text-[10px] text-outline uppercase tracking-wider">Showroom Principal</span>
+                <span class="font-body-md text-sm text-on-surface font-semibold mt-1">Av. América Este #1234</span>
+                <span class="font-body-md text-xs text-on-surface-variant">Cochabamba, Bolivia</span>
+              </div>
+            </div>
+
+            <!-- Phones -->
+            <div class="flex gap-4 items-start">
+              <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <span class="material-symbols-outlined text-xl">call</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-sm text-[10px] text-outline uppercase tracking-wider">Línea Directa</span>
+                <span class="font-body-md text-sm text-on-surface font-semibold mt-1">+591 4 4567890</span>
+                <span class="font-body-md text-xs text-on-surface-variant">+591 71234567 (WhatsApp)</span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex gap-4 items-start">
+              <div class="w-10 h-10 rounded bg-primary/10 flex items-center justify-center text-primary flex-shrink-0">
+                <span class="material-symbols-outlined text-xl">mail</span>
+              </div>
+              <div class="flex flex-col">
+                <span class="font-label-sm text-[10px] text-outline uppercase tracking-wider">Correo Técnico</span>
+                <span class="font-body-md text-sm text-on-surface font-semibold mt-1">contacto&#64;hiroshimabikemotors.com</span>
+                <span class="font-body-md text-xs text-on-surface-variant">consultas&#64;hiroshimabikemotors.com</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Google Map mock placeholder -->
+        <div class="glass-panel rounded-xl overflow-hidden h-52 border border-border-hairline relative flex items-center justify-center bg-[#0d0a15] group">
+          <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(124,58,237,0.1),transparent_80%)] pointer-events-none"></div>
+          <span class="material-symbols-outlined text-outline/20 text-7xl absolute group-hover:scale-110 transition-transform duration-500">map</span>
+          
+          <div class="relative z-10 text-center p-6">
+            <span class="material-symbols-outlined text-primary text-2xl mb-1">pin_drop</span>
+            <h4 class="font-rajdhani font-semibold text-xs tracking-widest text-on-surface uppercase mb-1">Mapa Showroom América</h4>
+            <p class="font-body-md text-[10px] text-outline-variant uppercase">Cochabamba - Zona Norte</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Reactive Form Column -->
+      <div 
+        appScrollReveal
+        [revealDelay]="200"
+        class="lg:col-span-7"
+      >
+        <div class="glass-panel p-8 rounded-xl border border-border-hairline relative">
+          <!-- Toast Notification for success submission -->
+          <div 
+            *ngIf="showToast"
+            class="absolute top-4 left-4 right-4 bg-primary-container text-white px-5 py-4 rounded border border-primary flex items-center gap-3 shadow-lg z-30 transition-all duration-300 animate-pulse"
+          >
+            <span class="material-symbols-outlined text-2xl">check_circle</span>
+            <div class="flex-1">
+              <h5 class="font-rajdhani font-bold text-sm tracking-wider uppercase">¡Solicitud Enviada!</h5>
+              <p class="text-xs text-secondary">Tu solicitud de cotización se ha procesado con éxito. Un asesor te contactará pronto.</p>
+            </div>
+            <button (click)="showToast = false" class="text-white hover:text-secondary">
+              <span class="material-symbols-outlined text-lg">close</span>
+            </button>
+          </div>
+
+          <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="flex flex-col gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              <!-- Name -->
+              <div class="flex flex-col gap-1.5">
+                <label for="nombre" class="font-label-sm text-outline-variant text-[11px] uppercase tracking-wider">Nombre Completo *</label>
+                <input 
+                  type="text" 
+                  id="nombre" 
+                  formControlName="nombre"
+                  placeholder="Ej. Luis Pérez"
+                  [class.border-error]="isFieldInvalid('nombre')"
+                  class="bg-background border border-border-hairline rounded px-4 py-3 text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary transition-colors"
+                />
+                <span *ngIf="isFieldInvalid('nombre')" class="font-label-sm text-[10px] text-error">
+                  El nombre es obligatorio.
+                </span>
+              </div>
+
+              <!-- Phone -->
+              <div class="flex flex-col gap-1.5">
+                <label for="telefono" class="font-label-sm text-outline-variant text-[11px] uppercase tracking-wider">Número de Teléfono *</label>
+                <input 
+                  type="tel" 
+                  id="telefono" 
+                  formControlName="telefono"
+                  placeholder="Ej. +591 71234567"
+                  [class.border-error]="isFieldInvalid('telefono')"
+                  class="bg-background border border-border-hairline rounded px-4 py-3 text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary transition-colors"
+                />
+                <span *ngIf="isFieldInvalid('telefono')" class="font-label-sm text-[10px] text-error">
+                  El teléfono es obligatorio.
+                </span>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="flex flex-col gap-1.5">
+              <label for="email" class="font-label-sm text-outline-variant text-[11px] uppercase tracking-wider">Correo Electrónico *</label>
+              <input 
+                type="email" 
+                id="email" 
+                formControlName="email"
+                placeholder="Ej. luis&#64;correo.com"
+                [class.border-error]="isFieldInvalid('email')"
+                class="bg-background border border-border-hairline rounded px-4 py-3 text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary transition-colors"
+              />
+              <span *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['required']" class="font-label-sm text-[10px] text-error">
+                El correo es obligatorio.
+              </span>
+              <span *ngIf="contactForm.get('email')?.touched && contactForm.get('email')?.errors?.['email']" class="font-label-sm text-[10px] text-error">
+                Ingresa un formato de correo electrónico válido.
+              </span>
+            </div>
+
+            <!-- Model of interest -->
+            <div class="flex flex-col gap-1.5">
+              <label for="modeloInteres" class="font-label-sm text-outline-variant text-[11px] uppercase tracking-wider">Modelo de Interés *</label>
+              <select 
+                id="modeloInteres" 
+                formControlName="modeloInteres"
+                [class.border-error]="isFieldInvalid('modeloInteres')"
+                class="bg-background border border-border-hairline rounded px-4 py-3 text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary transition-colors appearance-none"
+                style="background-image: url('data:image/svg+xml;utf8,<svg fill=%22%23958da1%22 height=%2224%22 viewBox=%220 0 24 24%22 width=%2224%22 xmlns=%22http://www.w3.org/2000/svg%22><path d=%22M7 10l5 5 5-5z%22/><path d=%22M0 0h24v24H0z%22 fill=%22none%22/></svg>'); background-repeat: no-repeat; background-position: right 12px center;"
+              >
+                <option value="" disabled selected>Selecciona una motocicleta...</option>
+                <optgroup *ngFor="let group of modelGroups" [label]="group.brandName | uppercase">
+                  <option *ngFor="let model of group.models" [value]="model.slug">
+                    {{ model.name }}
+                  </option>
+                </optgroup>
+              </select>
+              <span *ngIf="isFieldInvalid('modeloInteres')" class="font-label-sm text-[10px] text-error">
+                Debes seleccionar un modelo.
+              </span>
+            </div>
+
+            <!-- Query Message -->
+            <div class="flex flex-col gap-1.5">
+              <label for="consulta" class="font-label-sm text-outline-variant text-[11px] uppercase tracking-wider">Tu Consulta / Mensaje *</label>
+              <textarea 
+                id="consulta" 
+                formControlName="consulta"
+                rows="4"
+                placeholder="Escribe tu mensaje aquí..."
+                [class.border-error]="isFieldInvalid('consulta')"
+                class="bg-background border border-border-hairline rounded px-4 py-3 text-sm text-on-surface placeholder:text-outline-variant focus:outline-none focus:border-primary transition-colors resize-none"
+              ></textarea>
+              <span *ngIf="contactForm.get('consulta')?.touched && contactForm.get('consulta')?.errors?.['required']" class="font-label-sm text-[10px] text-error">
+                La consulta es obligatoria.
+              </span>
+              <span *ngIf="contactForm.get('consulta')?.touched && contactForm.get('consulta')?.errors?.['minlength']" class="font-label-sm text-[10px] text-error">
+                La consulta debe tener al menos 10 caracteres.
+              </span>
+            </div>
+
+            <!-- Submit Button -->
+            <button 
+              type="submit" 
+              [disabled]="contactForm.invalid || isSubmitting"
+              class="btn-primary w-full py-3.5 tracking-widest mt-2 flex items-center justify-center gap-2"
+            >
+              <span *ngIf="isSubmitting" class="w-4 h-4 border-2 border-on-surface border-t-transparent rounded-full animate-spin"></span>
+              {{ isSubmitting ? 'ENVIANDO SOLICITUD...' : 'ENVIAR SOLICITUD DE COTIZACIÓN' }}
+            </button>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,159 @@
+<div class="min-h-screen bg-background pt-24 pb-24 relative overflow-hidden" *ngIf="motorcycle">
+  
+  <div class="max-w-container-max mx-auto px-6 md:px-margin-desktop relative z-10">
+    <!-- Back link -->
+    <a 
+      [routerLink]="['/catalogo']" 
+      class="inline-flex items-center gap-2 text-on-surface-variant hover:text-primary font-technical text-xs tracking-wider mb-8 transition-colors duration-300 group"
+    >
+      <span class="material-symbols-outlined text-sm transform group-hover:-translate-x-1 transition-transform duration-300">arrow_back</span>
+      VOLVER AL CATÁLOGO
+    </a>
+
+    <!-- Split Screen Layout -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-0 items-start min-h-[80vh]">
+
+      <!-- LEFT PANEL: Image Area (55% = 7/12) -->
+      <div class="lg:col-span-7 relative flex items-center justify-center min-h-[400px] lg:min-h-[75vh] lg:sticky lg:top-24">
+        
+        <!-- Watermark Text (giant model name) -->
+        <div 
+          class="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
+        >
+          <span 
+            class="font-rajdhani font-bold text-on-surface whitespace-nowrap"
+            style="font-size: 18vw; opacity: 0.02; transform: rotate(-6deg);"
+          >
+            {{ motorcycle.name }}
+          </span>
+        </div>
+
+        <!-- Glow Floor -->
+        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-1/3 bg-gradient-to-t from-primary/20 to-transparent blur-[60px] pointer-events-none rounded-full"></div>
+
+        <!-- Motorcycle Image (floating) -->
+        <div class="relative z-10 flex flex-col items-center">
+          <img 
+            [src]="motorcycle.image" 
+            [alt]="motorcycle.name"
+            class="w-full max-w-[500px] lg:max-w-[550px] object-contain float-bike drop-shadow-[0_25px_60px_rgba(124,58,237,0.25)] select-none"
+          />
+          
+          <!-- Reflection -->
+          <img 
+            [src]="motorcycle.image"
+            [alt]="''"
+            class="w-full max-w-[500px] lg:max-w-[550px] object-contain scale-y-[-1] opacity-[0.15] blur-[2px] -mt-4 pointer-events-none select-none"
+            aria-hidden="true"
+          />
+        </div>
+
+        <!-- Special badge if applicable -->
+        <div *ngIf="motorcycle.badge_special" class="absolute top-8 right-8 z-20">
+          <span class="font-technical text-[11px] font-bold bg-primary-container text-white px-4 py-2 rounded-full shadow-lg border border-primary/30 animate-pulse tracking-widest">
+            {{ motorcycle.badge_special }}
+          </span>
+        </div>
+      </div>
+
+      <!-- RIGHT PANEL: Specs & Details (45% = 5/12) -->
+      <div class="lg:col-span-5 curtain-panel lg:pl-8">
+        
+        <!-- Brand & Year -->
+        <div class="flex items-center gap-3 mb-2">
+          <app-brand-badge [brand]="motorcycle.brand"></app-brand-badge>
+          <span class="font-label-sm text-outline text-[11px] tracking-wider">{{ motorcycle.year_range }}</span>
+        </div>
+
+        <!-- Model Name (Large Display) -->
+        <h1 class="font-rajdhani font-bold text-5xl sm:text-6xl lg:text-7xl text-on-surface uppercase leading-[1.0] tracking-tight mb-4">
+          {{ motorcycle.name }}
+        </h1>
+
+        <!-- Type Badge with pulsing dot -->
+        <div class="inline-flex items-center gap-2 glass-panel px-3 py-1.5 rounded-full border border-border-hairline mb-8">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span class="font-technical text-[11px] text-on-surface-variant tracking-wider">{{ motorcycle.type }}</span>
+        </div>
+
+        <!-- Key Metrics Grid (3 columns) -->
+        <div class="grid grid-cols-3 gap-4 mb-10">
+          <!-- Potencia -->
+          <div class="glass-panel p-4 rounded-xl border border-border-hairline/60 text-center">
+            <span class="material-symbols-outlined text-primary text-2xl mb-2">bolt</span>
+            <div class="font-rajdhani font-bold text-3xl text-on-surface leading-none mb-1">
+              {{ motorcycle.specs.motor.potencia_cv }}
+            </div>
+            <span class="font-label-sm text-[9px] text-outline uppercase tracking-widest">CV Potencia</span>
+          </div>
+
+          <!-- Cilindrada -->
+          <div class="glass-panel p-4 rounded-xl border border-border-hairline/60 text-center">
+            <span class="material-symbols-outlined text-primary text-2xl mb-2">settings_input_component</span>
+            <div class="font-rajdhani font-bold text-3xl text-on-surface leading-none mb-1">
+              {{ motorcycle.specs.motor.cilindrada_cc }}
+            </div>
+            <span class="font-label-sm text-[9px] text-outline uppercase tracking-widest">CC Cilindrada</span>
+          </div>
+
+          <!-- Velocidad Max -->
+          <div class="glass-panel p-4 rounded-xl border border-border-hairline/60 text-center">
+            <span class="material-symbols-outlined text-primary text-2xl mb-2">speed</span>
+            <div class="font-rajdhani font-bold text-3xl text-on-surface leading-none mb-1">
+              {{ motorcycle.specs.motor.velocidad_max_kmh || '—' }}
+            </div>
+            <span class="font-label-sm text-[9px] text-outline uppercase tracking-widest">KM/H Máx</span>
+          </div>
+        </div>
+
+        <!-- Price -->
+        <div class="flex items-baseline gap-3 mb-8 border-b border-border-hairline/30 pb-6">
+          <span class="font-rajdhani font-bold text-4xl text-gradient">
+            {{ motorcycle.price | priceFormat }}
+          </span>
+          <span class="font-label-sm text-outline text-[10px] uppercase tracking-wider">USD Ref.</span>
+        </div>
+
+        <!-- Spec Sections Accordion -->
+        <app-spec-panel [specs]="motorcycle.specs"></app-spec-panel>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 mt-10">
+          <a 
+            [routerLink]="['/']" 
+            fragment="contacto"
+            class="btn-primary flex-1 py-3.5 text-center flex items-center justify-center gap-2"
+          >
+            <span class="material-symbols-outlined text-lg">request_quote</span>
+            SOLICITAR COTIZACIÓN
+          </a>
+          <a 
+            [routerLink]="['/']" 
+            fragment="contacto"
+            class="btn-ghost flex-1 py-3.5 text-center flex items-center justify-center gap-2"
+          >
+            <span class="material-symbols-outlined text-lg">calendar_month</span>
+            AGENDAR PRUEBA
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation between models -->
+  <app-bottom-nav 
+    [prev]="adjacentModels.prev" 
+    [next]="adjacentModels.next" 
+    [currentIndex]="currentIndex"
+    [totalCount]="totalCount"
+  ></app-bottom-nav>
+</div>
+
+<!-- Loading state -->
+<div *ngIf="!motorcycle" class="min-h-screen bg-background flex items-center justify-center">
+  <div class="flex flex-col items-center gap-4">
+    <div class="w-12 h-12 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+    <p class="font-technical text-xs text-outline tracking-widest">CARGANDO MODELO...</p>
+  </div>
+</div>

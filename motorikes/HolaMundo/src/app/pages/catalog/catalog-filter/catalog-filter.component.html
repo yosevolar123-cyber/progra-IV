@@ -1,0 +1,102 @@
+<div class="glass-panel p-6 rounded-xl border border-border-hairline sticky top-24 w-full select-none">
+  <div class="flex justify-between items-center mb-6 pb-4 border-b border-border-hairline/50">
+    <h3 class="font-rajdhani font-bold text-base text-on-surface uppercase tracking-wider flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary text-xl">filter_list</span>
+      Filtros de Búsqueda
+    </h3>
+    <button 
+      (click)="resetAll()"
+      class="text-[11px] font-technical tracking-wider text-primary hover:text-secondary-container transition-colors uppercase"
+    >
+      Restablecer
+    </button>
+  </div>
+
+  <div class="flex flex-col gap-6">
+    
+    <!-- Brands Checkboxes -->
+    <div>
+      <h4 class="font-rajdhani font-semibold text-xs tracking-widest text-outline uppercase mb-3">Marcas</h4>
+      <div class="flex flex-col gap-2.5">
+        <label 
+          *ngFor="let brand of availableBrands"
+          class="flex items-center gap-3 cursor-pointer group"
+        >
+          <input 
+            type="checkbox" 
+            [checked]="selectedBrands.includes(brand.slug)"
+            (change)="toggleBrand(brand.slug)"
+            class="w-4 h-4 rounded border-border-hairline bg-background text-primary-container focus:ring-primary focus:ring-offset-background focus:ring-2 transition-all cursor-pointer accent-[#7C3AED]"
+          />
+          <span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors duration-200">
+            {{ brand.name }}
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Types Checkboxes -->
+    <div>
+      <h4 class="font-rajdhani font-semibold text-xs tracking-widest text-outline uppercase mb-3">Categorías</h4>
+      <div class="flex flex-col gap-2.5">
+        <label 
+          *ngFor="let type of availableTypes"
+          class="flex items-center gap-3 cursor-pointer group"
+        >
+          <input 
+            type="checkbox" 
+            [checked]="selectedTypes.includes(type)"
+            (change)="toggleType(type)"
+            class="w-4 h-4 rounded border-border-hairline bg-background text-primary-container focus:ring-primary focus:ring-offset-background focus:ring-2 transition-all cursor-pointer accent-[#7C3AED]"
+          />
+          <span class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors duration-200 text-xs">
+            {{ type }}
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Displacement Slider (Cilindrada) -->
+    <div>
+      <div class="flex justify-between items-center mb-2">
+        <h4 class="font-rajdhani font-semibold text-xs tracking-widest text-outline uppercase">Cilindrada Máx.</h4>
+        <span class="font-rajdhani text-primary text-xs font-bold">{{ maxCilindrada || 1100 }} cc</span>
+      </div>
+      <input 
+        type="range" 
+        min="100" 
+        max="1100" 
+        step="50"
+        [value]="maxCilindrada || 1100"
+        (input)="onCilindradaChange($event)"
+        class="w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#7C3AED]"
+      />
+      <div class="flex justify-between text-[10px] text-outline-variant mt-1.5 font-label-sm">
+        <span>100 cc</span>
+        <span>1100 cc</span>
+      </div>
+    </div>
+
+    <!-- Power Slider (Potencia) -->
+    <div>
+      <div class="flex justify-between items-center mb-2">
+        <h4 class="font-rajdhani font-semibold text-xs tracking-widest text-outline uppercase">Potencia Máx.</h4>
+        <span class="font-rajdhani text-primary text-xs font-bold">{{ maxPotencia || 320 }} CV</span>
+      </div>
+      <input 
+        type="range" 
+        min="8" 
+        max="320" 
+        step="10"
+        [value]="maxPotencia || 320"
+        (input)="onPotenciaChange($event)"
+        class="w-full h-1 bg-surface-container rounded-lg appearance-none cursor-pointer accent-[#7C3AED]"
+      />
+      <div class="flex justify-between text-[10px] text-outline-variant mt-1.5 font-label-sm">
+        <span>8 CV</span>
+        <span>320 CV</span>
+      </div>
+    </div>
+
+  </div>
+</div>

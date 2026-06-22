@@ -1,0 +1,90 @@
+<section id="modelos" class="py-24 bg-background relative overflow-hidden">
+  <div class="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+    <!-- Header -->
+    <app-section-header
+      appScrollReveal
+      eyebrow="Nuestra Flota"
+      title="CATÁLOGO DESTACADO"
+      description="Explora los modelos más populares. Filtra por categoría y descubre la potencia pura en dos ruedas."
+    ></app-section-header>
+
+    <!-- Filter Tabs -->
+    <div 
+      appScrollReveal
+      [revealDelay]="100"
+      class="flex flex-wrap items-center justify-center gap-2 mb-12 border-b border-border-hairline/30 pb-6"
+    >
+      <button
+        *ngFor="let tab of tabs"
+        (click)="selectTab(tab.value)"
+        [class.bg-primary]="activeTab === tab.value"
+        [class.text-on-primary]="activeTab === tab.value"
+        [class.border-primary]="activeTab === tab.value"
+        [class.text-on-surface-variant]="activeTab !== tab.value"
+        [class.border-border-hairline]="activeTab !== tab.value"
+        class="font-technical text-xs tracking-widest px-4 py-2 border bg-transparent rounded-full transition-all duration-300 hover:border-primary hover:text-primary"
+      >
+        {{ tab.label }}
+      </button>
+    </div>
+
+    <!-- Grid Area -->
+    <div class="relative min-h-[400px]">
+      <!-- Loading skeletons (when switching tabs) -->
+      <div 
+        *ngIf="isLoading"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+      >
+        <app-loading-skeleton *ngFor="let item of [1,2,3,4]"></app-loading-skeleton>
+      </div>
+
+      <!-- Motorcycle cards grid -->
+      <div 
+        *ngIf="!isLoading"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 transition-all duration-500 ease-in-out"
+      >
+        <div 
+          *ngFor="let bike of visibleMotorcycles; let idx = index"
+          class="fade-up-init fade-up-active"
+          [style.transition-delay]="(idx % 4) * 75 + 'ms'"
+        >
+          <app-motorcycle-card [motorcycle]="bike"></app-motorcycle-card>
+        </div>
+      </div>
+      
+      <!-- Empty state -->
+      <div 
+        *ngIf="!isLoading && visibleMotorcycles.length === 0" 
+        class="text-center py-16"
+      >
+        <span class="material-symbols-outlined text-outline text-5xl mb-4">search_off</span>
+        <p class="font-body-md text-on-surface-variant">No se encontraron modelos para esta categoría.</p>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div 
+      appScrollReveal
+      [revealDelay]="200"
+      class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4"
+    >
+      <button 
+        *ngIf="hasMore" 
+        (click)="loadMore()"
+        class="btn-ghost flex items-center gap-2 px-8 py-3.5"
+      >
+        CARGAR MÁS MODELOS
+        <span class="material-symbols-outlined text-lg">expand_more</span>
+      </button>
+      
+      <a 
+        [routerLink]="['/catalogo']" 
+        class="btn-primary flex items-center gap-2 px-8 py-3.5"
+      >
+        VER CATÁLOGO COMPLETO
+        <span class="material-symbols-outlined text-lg">pageview</span>
+      </a>
+    </div>
+
+  </div>
+</section>

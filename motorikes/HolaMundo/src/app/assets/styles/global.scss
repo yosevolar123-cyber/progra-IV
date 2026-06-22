@@ -1,0 +1,182 @@
+// Global Custom Styles and Utility Classes
+
+:root {
+  --color-bg: #08060F;
+  --color-surface: #15121B;
+  --color-primary: #D2BBFF;
+  --color-primary-container: #7C3AED;
+}
+
+// Custom Glass Panel styling
+.glass-panel {
+  background: rgba(18, 16, 42, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(167, 139, 250, 0.1);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  
+  &:hover {
+    border-color: rgba(167, 139, 250, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(124, 58, 237, 0.15);
+  }
+}
+
+// Button styles
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: #7C3AED; // primary_container
+  color: #E8DFEE; // on_surface
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.875rem; // 14px
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(210, 187, 255, 0.2);
+  border-radius: 0.125rem; // default radius
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+
+  &:hover {
+    background-color: #732EE4; // inverse_primary
+    border-color: rgba(210, 187, 255, 0.4);
+    box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: #CCC3D8; // on_surface_variant
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(149, 141, 161, 0.2); // border_hairline
+  border-radius: 0.125rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    background-color: rgba(210, 187, 255, 0.05);
+    color: #E8DFEE;
+    border-color: rgba(210, 187, 255, 0.3);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Text Gradient styling
+.text-gradient {
+  background: linear-gradient(135deg, #E8DFEE 0%, #D2BBFF 50%, #7C3AED 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+// Custom typography helpers
+.font-display-2xl {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 4.5rem; // 72px
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.font-headline-lg {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2.5rem; // 40px
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+}
+
+.font-headline-lg-mobile {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem; // 32px
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.font-headline-md {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 2rem; // 32px
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.font-display-lg {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 5rem; // 80px
+  font-weight: 700;
+  line-height: 1.0;
+}
+
+.font-technical {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.875rem; // 14px
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.font-body-lg {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem; // 18px
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.font-body-md {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem; // 16px
+  font-weight: 400;
+  line-height: 1.6;
+}
+
+.font-label-sm {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75rem; // 12px
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+// Custom Scrollbar
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #08060F;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2C2833;
+  border-radius: 4px;
+  
+  &:hover {
+    background: #4A4455;
+  }
+}

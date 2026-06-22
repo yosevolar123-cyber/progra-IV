@@ -1,0 +1,52 @@
+<section id="marcas" class="py-24 bg-surface_dim relative overflow-hidden">
+  <!-- Subtle ambient light -->
+  <div class="absolute top-1/2 left-0 w-80 h-80 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-container-max mx-auto px-6 md:px-margin-desktop">
+    <!-- Header -->
+    <app-section-header 
+      appScrollReveal
+      eyebrow="Marcas Japonesas"
+      title="NUESTRA SELECCIÓN DE ELITE"
+      description="Trabajamos exclusivamente con los cuatro gigantes de la ingeniería japonesa. Motocicletas importadas directamente, seleccionadas por su estado y desempeño impecable."
+    ></app-section-header>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div 
+        *ngFor="let brand of brands; let idx = index"
+        appScrollReveal
+        [revealDelay]="idx * 100"
+        [routerLink]="['/catalogo']"
+        [queryParams]="{ marca: brand.slug }"
+        class="glass-panel hover-underline-container group rounded-xl p-8 cursor-pointer flex flex-col justify-between h-72 border border-border-hairline transition-all duration-300 select-none hover:-translate-y-1.5"
+      >
+        <!-- Top bar with brand accent color -->
+        <div class="flex justify-between items-start mb-6">
+          <span 
+            class="font-rajdhani font-bold text-4xl tracking-widest transition-colors duration-300 group-hover:text-primary"
+            [style.color]="brand.colorAccent"
+          >
+            {{ brand.logoText }}
+          </span>
+          <span class="material-symbols-outlined text-outline group-hover:text-primary transform group-hover:translate-x-1 transition-all duration-300">
+            arrow_forward_ios
+          </span>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-auto">
+          <p class="font-body-md text-sm text-on-surface-variant group-hover:text-on-surface transition-colors duration-300 leading-relaxed mb-4">
+            {{ brand.description }}
+          </p>
+          
+          <!-- Bottom badge indicator -->
+          <div class="inline-flex items-center gap-1.5 text-xs text-primary font-technical tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            VER MODELOS
+            <span class="material-symbols-outlined text-xs">arrow_forward</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

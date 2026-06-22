@@ -1,0 +1,22 @@
+nav.scrolled {
+  background-color: rgba(14, 10, 28, 0.85) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(167, 139, 250, 0.1) !important;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+  height: 4.5rem; // Collapse height slightly from 5rem (h-20) to 4.5rem
+  
+  .max-w-container-max {
+    height: 4.5rem;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+nav {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  .max-w-container-max {
+    height: 5rem;
+    transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
