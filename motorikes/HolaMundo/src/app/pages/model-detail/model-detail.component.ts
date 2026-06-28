@@ -57,12 +57,11 @@ export class ModelDetailComponent implements OnInit, OnDestroy {
       this.motorcycle = moto;
 
       if (moto) {
-        this.adjacentModels = this.motorcycleService.getAdjacentModels(moto.id);
-        
-        // Calculate index
+        // Calculate index and adjacent models after getting all motorcycles (ensuring cache is loaded)
         this.motorcycleService.getAll().subscribe(all => {
           this.totalCount = all.length;
           this.currentIndex = all.findIndex(m => m.id === moto.id);
+          this.adjacentModels = this.motorcycleService.getAdjacentModels(moto.id);
         });
       }
 

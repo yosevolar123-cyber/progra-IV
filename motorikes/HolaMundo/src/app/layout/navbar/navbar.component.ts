@@ -1,6 +1,7 @@
 import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive, Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,11 @@ export class NavbarComponent {
   isScrolled = false;
   isMobileMenuOpen = false;
 
-  constructor(@Inject(PLATFORM_ID) private platformId: Object) {
+  constructor(
+    @Inject(PLATFORM_ID) private platformId: Object,
+    public authService: AuthService,
+    private router: Router
+  ) {
     if (isPlatformBrowser(this.platformId)) {
       this.isScrolled = window.scrollY > 50;
     }
@@ -32,5 +37,11 @@ export class NavbarComponent {
 
   closeMobileMenu(): void {
     this.isMobileMenuOpen = false;
+  }
+
+  async logout(): Promise<void> {
+    await this.authService.signOut();
+    this.closeMobileMenu();
+    this.router.navigate(['/']);
   }
 }

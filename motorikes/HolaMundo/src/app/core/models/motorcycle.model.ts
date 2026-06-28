@@ -64,4 +64,6 @@ export interface Motorcycle {
   badge_special?: string;
   specs: MotorcycleSpecs;
   price?: number; // Add price field for filtering and display
+  stock?: number;
+  visible?: boolean;
 }
